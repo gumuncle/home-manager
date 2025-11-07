@@ -3,6 +3,8 @@
 This repository contains configuration to build your user environment completely declaratively on macOS using Nix and Home Manager.  
 Even basic tools like `git` are provided from the Nix store, so it works even if nothing is installed on macOS itself.
 
+**Note:** This configuration dynamically uses your current login username and home directory via `builtins.getEnv`, so it works for any user without modification.
+
 ---
 
 ## 📦 Overview
@@ -42,7 +44,11 @@ home-manager/
 2. Apply Home Manager
 
    ```bash
-   nix run nixpkgs#home-manager -- switch --flake .#gumuncle
+   # Replace 'gumuncle' with your actual username
+   nix run nixpkgs#home-manager -- switch --flake ~/Sources/home-manager#gumuncle
+   
+   # Or use $USER to automatically use your current username
+   nix run nixpkgs#home-manager -- switch --flake ~/Sources/home-manager#$USER
    ```
 
 3. Verify
@@ -60,11 +66,13 @@ home-manager/
 
 | Action | Command |
 |------|-----------|
-| Apply configuration | `home-manager switch --flake .#yusuke` |
-| Test configuration (dry-run) | `home-manager build --flake .#yusuke` |
+| Apply configuration | `home-manager switch --flake ~/Sources/home-manager#$USER` |
+| Test configuration (dry-run) | `home-manager build --flake ~/Sources/home-manager#$USER` |
 | Update flake inputs | `nix flake update` |
 | Enter a Nix shell | `./scripts/enter.sh` |
 | Roll back to a previous generation | `home-manager rollback` |
+
+**Note:** `$USER` automatically uses your current login username.
 
 ---
 
@@ -73,11 +81,15 @@ home-manager/
 - `flake.nix`  
   → Defines Home Manager and devShell for macOS (`aarch64-darwin`)  
 - `home/default.nix`  
+  → Dynamically gets username and home directory using `builtins.getEnv`  
   → Imports modules and provides `git` from the Nix store  
 - `modules/git.nix`  
   → `programs.git.enable = true;` to declare Git configuration  
 - `modules/shell.nix`  
-  → Declaratively manage Zsh and environment variables (`home.sessionVariables`)  
+  → Declaratively manage Zsh and Bash with custom emoji prompts 🔥⚡️🚀  
+  → Environment variables (`EDITOR`, `LANG`, locale settings)  
+  → Oh My Zsh with plugins: `git`, `z`, `sudo`  
+  → Custom shell aliases (`..,` `,,`, `ll`, `py`)  
 - `modules/devtools.nix`  
   → Manage development tools like Python, Node.js, and AWS CLI with Nix  
 
@@ -121,4 +133,4 @@ This setup is intentionally simple, but you can extend it in the following ways:
 ## 📜 License
 
 MIT License  
-(c) 2025 Yusuke Furukawa
+(c) 2025 gumuncle
