@@ -1,11 +1,7 @@
-{ config, pkgs, ... }:
+{ config, pkgs, lib, ... }:
 
-let
-  username = builtins.getEnv "USER";
-  homeDir  = builtins.getEnv "HOME";
-in {
-  home.username = username;
-  home.homeDirectory = homeDir;
+{
+  # ユーザー情報はflake.nixで設定されます
   home.stateVersion = "24.05";
 
   imports = [
