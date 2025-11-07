@@ -1,9 +1,9 @@
 { ... }: {
   programs.git = {
     enable = true;
-    userName = "Yusuke Furukawa";
-    userEmail = "littlefive.jp+git@gmail.com";
-    extraConfig = {
+    settings = {
+      user.name  = "gumuncle";
+      user.email = "littlefive.jp@gmail.com";
       core.editor = "vim";
       pull.rebase = true;
     };

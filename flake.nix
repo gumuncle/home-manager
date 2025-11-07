@@ -1,5 +1,5 @@
 {
-  description = "Home Manager setup for macOS (Yusuke)";
+  description = "Home Manager setup for macOS (gumuncle)";
 
   inputs = {
     nixpkgs.url = "github:NixOS/nixpkgs/nixos-unstable";
@@ -13,7 +13,7 @@
     pkgs = import nixpkgs { inherit system; };
   in {
     # --- Home Manager構成 ---
-    homeConfigurations."yusuke" = home-manager.lib.homeManagerConfiguration {
+    homeConfigurations."gumuncle" = home-manager.lib.homeManagerConfiguration {
       inherit pkgs;
       modules = [ ./home/default.nix ];
     };
