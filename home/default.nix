@@ -1,8 +1,11 @@
 { config, pkgs, ... }:
 
-{
-  home.username = "gumuncle";
-  home.homeDirectory = "/Users/gumuncle";
+let
+  username = builtins.getEnv "USER";
+  homeDir  = builtins.getEnv "HOME";
+in {
+  home.username = username;
+  home.homeDirectory = homeDir;
   home.stateVersion = "24.05";
 
   imports = [
@@ -11,10 +14,9 @@
     ./modules/devtools.nix
   ];
 
+  programs.home-manager.enable = true;
+
   home.packages = with pkgs; [
     git
   ];
-
-  programs.home-manager.enable = true;
 }
-
