@@ -42,7 +42,7 @@ home-manager/
 2. Apply Home Manager
 
    ```bash
-   nix run nixpkgs#home-manager -- switch --flake .#yusuke
+   nix run nixpkgs#home-manager -- switch --flake .#gumuncle
    ```
 
 3. Verify
