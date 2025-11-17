@@ -15,9 +15,19 @@
     # ヘルパー関数：ユーザーごとのHome Manager設定を生成
     mkHomeConfiguration = username: 
       let
-        # ユーザー名とホームディレクトリを決定
-        actualUsername = if username == "default" then "cw-yusuke.furukawa" else username;
-        homeDirectory = "/Users/${actualUsername}";
+        # 実行シェルからユーザー情報を取得し、フォールバックも用意
+        envUser = builtins.getEnv "USER";
+        envHome = builtins.getEnv "HOME";
+
+        actualUsername =
+          if username == "default"
+          then (if envUser != "" then envUser else "default")
+          else username;
+
+        homeDirectory =
+          if username == "default"
+          then (if envHome != "" then envHome else "/Users/${actualUsername}")
+          else "/Users/${username}";
       in
       home-manager.lib.homeManagerConfiguration {
         inherit pkgs;
@@ -47,7 +57,7 @@
 
     # --- devShell（CLI fallback用）---
     devShells.${system}.default = pkgs.mkShell {
-      buildInputs = [ pkgs.git pkgs.home-manager ];
+      buildInputs = [ pkgs.git pkgs.home-manager pkgs.nodejs_22 ];
       
       # Nixの実験的機能を有効にする環境変数を設定
       shellHook = ''

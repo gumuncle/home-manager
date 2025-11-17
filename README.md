@@ -3,7 +3,7 @@
 This repository contains configuration to build your user environment completely declaratively on macOS using Nix and Home Manager.  
 Even basic tools like `git` are provided from the Nix store, so it works even if nothing is installed on macOS itself.
 
-**Note:** This configuration dynamically uses your current login username and home directory via `builtins.getEnv`, so it works for any user without modification.
+**Note:** The `default` profile automatically picks up the shell's `$USER` and `$HOME`, so you can reuse this flake on any machine without editing usernames.
 
 ---
 
@@ -43,13 +43,13 @@ home-manager/
 
 2. Apply Home Manager
 
-   ```bash
-   # Replace 'gumuncle' with your actual username
-   nix run nixpkgs#home-manager -- switch --flake ~/Sources/home-manager#gumuncle
-   
-   # Or use $USER to automatically use your current username
-   nix run nixpkgs#home-manager -- switch --flake ~/Sources/home-manager#$USER
-   ```
+  ```bash
+  # Automatically uses the current shell user and home directory
+  nix run nixpkgs#home-manager -- switch --flake ~/Sources/home-manager#$USER
+
+  # Explicit profiles remain available if you want a named variant
+  nix run nixpkgs#home-manager -- switch --flake ~/Sources/home-manager#gumuncle
+  ```
 
 3. Verify
 
@@ -81,8 +81,9 @@ home-manager/
 - `flake.nix`  
   → Defines Home Manager and devShell for macOS (`aarch64-darwin`)  
 - `home/default.nix`  
-  → Dynamically gets username and home directory using `builtins.getEnv`  
-  → Imports modules and provides `git` from the Nix store  
+  → Imports the common modules and provides `git` from the Nix store  
+- `flake.nix` `mkHomeConfiguration`  
+  → Binds the `default` profile to `$USER`/`$HOME` at activation time with clean fallbacks  
 - `modules/git.nix`  
   → `programs.git.enable = true;` to declare Git configuration  
 - `modules/shell.nix`  
