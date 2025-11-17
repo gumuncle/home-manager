@@ -42,15 +42,22 @@
       };
     
     # 複数ユーザーをサポートするためのヘルパー
-    supportedUsers = [ "default"  "gumuncle" ];
-    
-    # 動的にhomeConfigurationsを生成
-    homeConfigurations = builtins.listToAttrs (
+    supportedUsers = [ "default" "gumuncle" ];
+    envUser = builtins.getEnv "USER";
+
+    baseHomeConfigurations = builtins.listToAttrs (
       map (user: {
         name = user;
         value = mkHomeConfiguration user;
       }) supportedUsers
     );
+
+    envUserConfiguration =
+      if envUser != "" && !(builtins.hasAttr envUser baseHomeConfigurations)
+      then { "${envUser}" = mkHomeConfiguration envUser; }
+      else {};
+
+    homeConfigurations = baseHomeConfigurations // envUserConfiguration;
   in {
     # --- 動的Home Manager構成 ---
     inherit homeConfigurations;

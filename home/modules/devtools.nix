@@ -1,7 +1,7 @@
 { pkgs, ... }: {
   home.packages = with pkgs; [
     python313
-    #nodejs
+    nodejs_22
     jq
     ripgrep
     #gh
