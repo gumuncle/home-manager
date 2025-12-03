@@ -48,6 +48,9 @@ in {
 
       ${emojiFunction}
 
+      # Nixのgitを優先するためにPATHの先頭に追加
+      export PATH="$HOME/.nix-profile/bin:/run/current-system/sw/bin:$PATH"
+
       # カスタムプロンプト
       PROMPT='%F{white}┌───=[ ''${RANDOM##*}$(GET_RANDOM_EMOJI) %n::%F{white}%m%f%F{white}]-[%~]-[%D-%*] %F{white}$vcs_info_msg_0_%f
     %F{white}└──$%f'
@@ -61,6 +64,9 @@ in {
     bashrcExtra = ''
       ${emojiFunction}
       
+      # Nixのgitを優先するためにPATHの先頭に追加
+      export PATH="$HOME/.nix-profile/bin:/run/current-system/sw/bin:$PATH"
+
       # カスタムプロンプト
       PS1="\[\e[97m\]┌───=[ \$RANDOM\$(GET_RANDOM_EMOJI) \u::\h]-[\w]-[\D{%H:%M}] \[\e[97m\]\n└──\$\[\e[0m\] "
     '';
