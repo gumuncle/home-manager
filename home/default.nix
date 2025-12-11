@@ -12,7 +12,5 @@
 
   programs.home-manager.enable = true;
 
-  home.packages = with pkgs; [
-    git
-  ];
+  home.packages = [ pkgs.git ];
 }

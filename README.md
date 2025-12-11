@@ -3,7 +3,7 @@
 This repository contains configuration to build your user environment completely declaratively on macOS using Nix and Home Manager.  
 Even basic tools like `git` are provided from the Nix store, so it works even if nothing is installed on macOS itself.
 
-**Note:** The `default` profile automatically picks up the shell's `$USER` and `$HOME`, so you can reuse this flake on any machine without editing usernames. Because environment access in flakes is impure, remember to add `--impure` to the `nix run`/`home-manager` commands. It also exposes a profile named after the current `$USER`, so `.#$USER` works without additional configuration.
+**Note:** Profiles are defined explicitly per user (e.g., `cw-yusuke.furukawa`, `gumuncle`) to keep the flake pure; no `--impure` or `$USER` injection is needed.
 
 ---
 
@@ -41,16 +41,11 @@ home-manager/
    sh <(curl -L https://nixos.org/nix/install)
    ```
 
-2. Apply Home Manager (`--impure` is required for dynamic `$USER/$HOME` lookup)
+2. Apply Home Manager
 
   ```bash
-  # Dynamic user detection (recommended)
-  nix run --impure nixpkgs#home-manager -- switch --flake ~/Sources/home-manager#$USER
-
-  # Fallback profile
-  nix run nixpkgs#home-manager -- switch --flake ~/Sources/home-manager#default
-
-  # Explicit named profile
+  # Explicit profiles (pure)
+  nix run nixpkgs#home-manager -- switch --flake ~/Sources/home-manager#cw-yusuke.furukawa
   nix run nixpkgs#home-manager -- switch --flake ~/Sources/home-manager#gumuncle
   ```
 
@@ -69,8 +64,8 @@ home-manager/
 
 | Action | Command |
 |------|-----------|
-| Apply configuration | `home-manager switch --impure --flake ~/Sources/home-manager#$USER` |
-| Apply default profile | `home-manager switch --flake ~/Sources/home-manager#default` |
+| Apply configuration | `home-manager switch --flake ~/Sources/home-manager#cw-yusuke.furukawa` |
+| Apply alternative profile | `home-manager switch --flake ~/Sources/home-manager#gumuncle` |
 | Test configuration (dry-run) | `home-manager build --flake ~/Sources/home-manager#$USER` |
 | Update flake inputs | `nix flake update` |
 | Enter a Nix shell | `./scripts/enter.sh` |

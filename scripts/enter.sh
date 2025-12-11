@@ -2,6 +2,6 @@
 set -e
 
 # Nixの実験的機能を有効にしてからdevelopを実行
-export NIX_CONFIG="experimental-features = nix-command flakes"
-nix develop --impure --command zsh
+# 開発シェルに入るだけ。実験機能はflakeのnixConfigで定義済み。
+nix develop --command zsh
 

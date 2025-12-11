@@ -72,9 +72,7 @@ in {
     '';
   };
 
-  home.packages = with pkgs; [
-    zsh
-  ];
+  home.packages = [ pkgs.zsh ];
 
   home.sessionVariables = commonSessionVariables;
   home.sessionPath = commonSessionPath;
