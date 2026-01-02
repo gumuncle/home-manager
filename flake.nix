@@ -12,9 +12,9 @@
     outputs = { self, nixpkgs, home-manager, nixvim, ... }:
     let
         system = "aarch64-darwin";
-        pkgs = import nixpkgs { inherit system; };
+        pkgs = nixpkgs.legacyPackages.${system};
     in {
-        homeConfigurations.gumuncle = home-manager.lib.homeManagerConfiguration {
+        homeConfigurations."gumuncle" = home-manager.lib.homeManagerConfiguration {
             inherit pkgs;
             modules = [
                 ./home.nix

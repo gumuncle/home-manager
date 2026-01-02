@@ -41,11 +41,11 @@
           auto_image_popup = false;
           auto_init_behavior = "init";
           auto_open_html_in_browser = false;
-          auto_open_output = true;
+          auto_open_output = false;
           cover_empty_lines = false;
           copy_output = false;
           enter_output_behavior = "open_then_enter";
-          image_provider = "image.nvim";
+          image_provider = "wezterm";
           output_crop_border = true;
           output_virt_lines = false;
           output_win_border = [ "" "━" "" "" ];
@@ -72,6 +72,10 @@
         max_height_window_percentage = 50;
 
        };
+     };
+
+     wezterm = {
+       enable = true;
      };
 
       # Completion
