@@ -11,7 +11,7 @@ This repository contains my Home Manager configuration managed with Nix flakes.
 ## What’s inside
 
 - `flake.nix`: Flake entrypoint exposing `homeConfigurations."gumuncle"`.
-- `home.nix`: Main Home Manager module.
+- `home/default.nix`: Main Home Manager module.
 - `home/nixvim.nix`: Nixvim configuration module.
 - `config/`: Additional config files (if any).
 

@@ -17,9 +17,8 @@
         homeConfigurations."gumuncle" = home-manager.lib.homeManagerConfiguration {
             inherit pkgs;
             modules = [
-                ./home.nix
+                ./home
                 nixvim.homeModules.nixvim
-                ./home/nixvim.nix
             ];
         };
     };
