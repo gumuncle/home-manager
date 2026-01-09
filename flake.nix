@@ -19,6 +19,7 @@
             modules = [
                 ./home
                 nixvim.homeModules.nixvim
+                git
             ];
         };
     };

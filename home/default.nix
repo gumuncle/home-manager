@@ -2,6 +2,7 @@
 {
   imports = [
     ./nixvim.nix
+    ./shell.nix
   ];
 
   home.username = "gumuncle";
