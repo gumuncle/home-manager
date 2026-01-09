@@ -1,10 +1,12 @@
-{ ... }:
+{ pkgs, ... }:
 {
+  home.packages = [ pkgs.git ];
+
   programs.git = {
     enable = true;
 
     # Minimal, safe defaults
-    extraConfig = {
+    settings = {
       init.defaultBranch = "main";
       pull.ff = "only";
     };
