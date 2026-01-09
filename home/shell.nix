@@ -4,7 +4,7 @@
     enable = true;
     enableCompletion = true;
 
-    initExtra = ''
+    initContent = ''
       # Home Manager session variables (PATH, etc.)
       if [ -r "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh" ]; then
         . "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
