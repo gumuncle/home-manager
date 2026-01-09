@@ -2,6 +2,9 @@
 
 This repository contains my Home Manager configuration managed with Nix flakes.
 
+<img width="820" height="181" alt="スクリーンショット 2026-01-10 8 22 32" src="https://github.com/user-attachments/assets/8cbae248-783d-487b-8098-19a6324159d5" />
+
+
 ## Requirements
 
 - Nix 2.4+ with flakes enabled (`nix-command` and `flakes`).
