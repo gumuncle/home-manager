@@ -49,6 +49,33 @@
       # Meaningful labeled tabs: NAV/COM/SYS + status (OK / ERR:<code>)
       PROMPT="%K{$LC_AMBER}%F{0}  %f%k%K{$LC_CYAN}%F{0}  %f%k%K{$LC_HUD}%F{0}  %f%k %F{$LC_HUD}%n@%m%f %F{$LC_DIM}%~%f %F{$LC_CYAN}$vcs_info_msg_0_$__git_dirty%f
 %F{$LC_AMBER}└─%f%(?.%F{$LC_HUD}OK%f.%F{$LC_RED}ERR:%?%f) %F{$LC_HUD}❯%f "
+
+      # --- convenience aliases ---
+      # cd shortcuts
+      alias ..='cd ..'
+      alias ,,='cd ../..'
+
+      # ls: color + human readable (GNU ls / BSD ls compatible)
+      ls() {
+        if command ls --color=auto . >/dev/null 2>&1; then
+          command ls --color=auto -h "$@"
+        else
+          command ls -G -h "$@"
+        fi
+      }
+
+      # --- Ctrl+R: history search ---
+      autoload -Uz history-search-end
+      zle -N history-search-end
+
+      # incremental search (works in emacs + vi insert mode)
+      bindkey -M emacs '^R' history-incremental-search-backward
+      bindkey -M viins '^R' history-incremental-search-backward
+
+      # optional: forward incremental search (Ctrl+S)
+      # (Terminal may need: stty -ixon to stop flow-control)
+      # bindkey -M emacs '^S' history-incremental-search-forward
+      # bindkey -M viins '^S' history-incremental-search-forward
     '';
   };
 
@@ -103,6 +130,27 @@
       }
 
       PROMPT_COMMAND=__lc_prompt
+
+      # --- convenience aliases ---
+      # cd shortcuts
+      alias ..='cd ..'
+      alias ,,='cd ../..'
+
+      # ls: color + human readable (GNU ls / BSD ls compatible)
+      ls() {
+        if command ls --color=auto . >/dev/null 2>&1; then
+          command ls --color=auto -h "$@"
+        else
+          command ls -G -h "$@"
+        fi
+      }
+
+      # --- Ctrl+R: history search ---
+      # Bash usually has this by default, but bind explicitly.
+      bind '"\C-r": reverse-search-history'
+
+      # optional Ctrl+S forward search (may require: stty -ixon)
+      # bind '"\C-s": forward-search-history'
     '';
   };
 }
