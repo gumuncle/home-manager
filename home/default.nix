@@ -6,10 +6,15 @@
     ./git.nix
   ];
 
-  home.username = "gumuncle";
-  home.homeDirectory = "/Users/gumuncle";
   home.stateVersion = "25.11";
   programs.home-manager.enable = true;
+
+  home.sessionPath = [ "$HOME/.nix-profile/bin" ];
+
+  home.shellAliases = {
+    ".." = "cd ..";
+    ",," = "cd ../..";
+  };
 
   targets.darwin = {
     linkApps.enable = false;

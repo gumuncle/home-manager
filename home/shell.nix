@@ -5,14 +5,6 @@
     enableCompletion = true;
 
     initContent = ''
-      # Prefer Nix profile binaries over system ones (e.g. git)
-      export PATH="$HOME/.nix-profile/bin:$PATH"
-
-      # Home Manager session variables (PATH, etc.)
-      if [ -r "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh" ]; then
-        . "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
-      fi
-
       setopt PROMPT_SUBST
 
       autoload -Uz colors vcs_info
@@ -46,14 +38,8 @@
 
       RPROMPT="%F{$LC_DIM}%D{%H:%M:%S}%f"
 
-      # Meaningful labeled tabs: NAV/COM/SYS + status (OK / ERR:<code>)
       PROMPT="%K{$LC_AMBER}%F{0}  %f%k%K{$LC_CYAN}%F{0}  %f%k%K{$LC_HUD}%F{0}  %f%k %F{$LC_HUD}%n@%m%f %F{$LC_DIM}%~%f %F{$LC_CYAN}$vcs_info_msg_0_$__git_dirty%f
 %F{$LC_AMBER}└─%f%(?.%F{$LC_HUD}OK%f.%F{$LC_RED}ERR:%?%f) %F{$LC_HUD}❯%f "
-
-      # --- convenience aliases ---
-      # cd shortcuts
-      alias ..='cd ..'
-      alias ,,='cd ../..'
 
       # ls: color + human readable (GNU ls / BSD ls compatible)
       ls() {
@@ -84,14 +70,6 @@
     enableCompletion = true;
 
     bashrcExtra = ''
-      # Prefer Nix profile binaries over system ones (e.g. git)
-      export PATH="$HOME/.nix-profile/bin:$PATH"
-
-      # Home Manager session variables (PATH, etc.)
-      if [ -r "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh" ]; then
-        . "$HOME/.nix-profile/etc/profile.d/hm-session-vars.sh"
-      fi
-
       __lc_git_branch() {
         git symbolic-ref --short HEAD 2>/dev/null
       }
@@ -131,12 +109,6 @@
 
       PROMPT_COMMAND=__lc_prompt
 
-      # --- convenience aliases ---
-      # cd shortcuts
-      alias ..='cd ..'
-      alias ,,='cd ../..'
-
-      # ls: color + human readable (GNU ls / BSD ls compatible)
       ls() {
         if command ls --color=auto . >/dev/null 2>&1; then
           command ls --color=auto -h "$@"
@@ -145,8 +117,6 @@
         fi
       }
 
-      # --- Ctrl+R: history search ---
-      # Bash usually has this by default, but bind explicitly.
       bind '"\C-r": reverse-search-history'
 
       # optional Ctrl+S forward search (may require: stty -ixon)

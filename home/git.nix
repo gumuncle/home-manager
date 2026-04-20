@@ -1,12 +1,12 @@
-{ pkgs, ... }:
+{ ... }:
 {
-  home.packages = [ pkgs.git ];
-
   programs.git = {
     enable = true;
 
-    # Minimal, safe defaults
-    settings = {
+    userName = "gumuncle";
+    userEmail = "littlefive.jp@gmail.com";
+
+    extraConfig = {
       init.defaultBranch = "main";
       pull.ff = "only";
     };
